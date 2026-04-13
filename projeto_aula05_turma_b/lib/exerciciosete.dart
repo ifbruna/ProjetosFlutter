@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ExercicioSeis extends StatelessWidget {
-  const ExercicioSeis({super.key});
+class ExercicioSete extends StatelessWidget {
+  const ExercicioSete({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ExercicioSeis extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Olá, esse é o exercicio seis",
+                  "Olá, esse é o exercicio sete",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Icon(Icons.woman),
@@ -91,6 +91,21 @@ class ExercicioSeis extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset('assets/images/icon.png', width: 25, height: 25),
+                const Text('Eu amo o flutter!'),
+              ],
+            ),
+          ),
+          const Spacer(), // mesma coisa que Expanded(child: SizedBox())
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text('desenvolvimento de aplicativos')],
           ),
         ],
       ),

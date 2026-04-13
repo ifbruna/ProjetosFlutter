@@ -10,7 +10,7 @@ class ExercicioCinco extends StatelessWidget {
       appBar: AppBar(
         leading: const Icon(Icons.menu),
 
-        backgroundColor: const Color.fromARGB(255, 23, 194, 66),
+        backgroundColor: const Color.fromARGB(255, 56, 116, 71),
       ),
       body: Column(
         children: [
@@ -20,7 +20,7 @@ class ExercicioCinco extends StatelessWidget {
             height: size.height * 0.15,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-              color: Color.fromARGB(255, 23, 194, 66),
+              color: Color.fromARGB(255, 56, 116, 71),
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,10 +41,13 @@ class ExercicioCinco extends StatelessWidget {
               const Text("Recomendados"),
               TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(139, 109, 236, 158),
+                  backgroundColor: const Color.fromARGB(255, 153, 194, 164),
                 ),
                 onPressed: () {},
-                child: const Text("Mais"),
+                child: const Text(
+                  "Mais",
+                  style: TextStyle(color: Color.fromARGB(255, 45, 92, 64)),
+                ),
               ),
             ],
           ),

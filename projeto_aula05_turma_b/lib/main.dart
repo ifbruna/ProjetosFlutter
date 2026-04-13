@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'exerciciocinco.dart';
+import 'exerciciosete.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Flutter Demo', home: ExercicioCinco());
+    return const MaterialApp(title: 'Flutter Demo', home: ExercicioSete());
   }
 }
