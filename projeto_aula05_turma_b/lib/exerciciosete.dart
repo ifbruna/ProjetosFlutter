@@ -59,34 +59,48 @@ class ExercicioSete extends StatelessWidget {
                 Container(
                   width: size.width * 0.4,
                   margin: const EdgeInsets.only(right: 10),
-                  child: Image.asset(
-                    'assets/images/gatoprogramador.jpg',
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/images/gatoprogramador.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
 
                 Container(
                   width: size.width * 0.4,
                   margin: const EdgeInsets.only(right: 10),
-                  child: Image.asset(
-                    'assets/images/gatomatero.jpg',
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/images/gatomatero.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+
                 Container(
                   width: size.width * 0.4,
                   margin: const EdgeInsets.only(right: 10),
-                  child: Image.asset(
-                    'assets/images/gatochimarrao.jpg',
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/images/gatochimarrao.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+
                 Container(
                   width: size.width * 0.4,
                   margin: const EdgeInsets.only(right: 10),
-                  child: Image.asset(
-                    'assets/images/cachorrodesconfiado.jpg',
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/images/cachorrodesconfiado.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ],

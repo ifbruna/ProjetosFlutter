@@ -10,10 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: const ExercicioSete(),
-    );
+    return MaterialApp(title: 'Flutter Demo', home: const ExercicioSete());
   }
 }
 
@@ -35,7 +32,7 @@ class ExercicioUm extends StatelessWidget {
 class ExercicioDois extends StatelessWidget {
   const ExercicioDois({super.key});
 
-  String getFullName(String nome, String sobrenome){
+  String getFullName(String nome, String sobrenome) {
     return "$sobrenome, $nome";
   }
 
@@ -46,16 +43,15 @@ class ExercicioDois extends StatelessWidget {
         title: const Text("Aula 4 - exercicio 2"),
         backgroundColor: Color.fromARGB(255, 255, 147, 250),
       ),
-       body: Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text ("hello world"),
-            Text (getFullName("Bruna", "Farias")),
+            const Text("hello world"),
+            Text(getFullName("Bruna", "Farias")),
           ],
         ),
-       )
-       ,
+      ),
     );
   }
 }
@@ -63,7 +59,7 @@ class ExercicioDois extends StatelessWidget {
 class ExercicioTres extends StatelessWidget {
   const ExercicioTres({super.key});
 
-  String getFullName(String nome, String sobrenome){
+  String getFullName(String nome, String sobrenome) {
     return "$nome ${sobrenome.toUpperCase()}";
   }
 
@@ -71,19 +67,19 @@ class ExercicioTres extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text ("Aula 4 - exercicio 3"),
+        title: const Text("Aula 4 - exercicio 3"),
         backgroundColor: Color.fromARGB(255, 255, 147, 250),
       ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text ("hello world"),
+            const Text("hello world"),
             SizedBox(width: 10),
-            Text (getFullName("Bruna", "Farias")),
+            Text(getFullName("Bruna", "Farias")),
           ],
         ),
-       ),
+      ),
     );
   }
 }
@@ -91,7 +87,7 @@ class ExercicioTres extends StatelessWidget {
 class ExercicioQuatro extends StatelessWidget {
   const ExercicioQuatro({super.key});
 
-  String getFullName(String nome, String sobrenome){
+  String getFullName(String nome, String sobrenome) {
     return "$nome ${sobrenome.toUpperCase()}";
   }
 
@@ -104,7 +100,7 @@ class ExercicioQuatro extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text ("Aula 4 - exercicio 4"),
+        title: const Text("Aula 4 - exercicio 4"),
         backgroundColor: Color.fromARGB(255, 255, 147, 250),
       ),
       body: Column(
@@ -112,18 +108,15 @@ class ExercicioQuatro extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text (getFullName("Bruna", "Farias")),
+              Text(getFullName("Bruna", "Farias")),
               SizedBox(width: 30),
-              Text (getData()),
+              Text(getData()),
             ],
           ),
-          Expanded(child: Center (
-            child: Text("Hello World"),
-          ))
-        ]
-      
-        ),
-       );
+          Expanded(child: Center(child: Text("Hello World"))),
+        ],
+      ),
+    );
   }
 }
 
@@ -141,15 +134,16 @@ class ExercicioCinco extends StatelessWidget {
         children: [
           Icon(Icons.account_circle_rounded),
           SizedBox(width: 20),
-          Expanded(child: Container( child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Nome"),
-              Text("Telefone")
-            ],
-          ),)),
-          Icon(Icons.phone)
+          Expanded(
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Text("Nome"), Text("Telefone")],
+              ),
+            ),
+          ),
+          Icon(Icons.phone),
         ],
       ),
     );
@@ -167,18 +161,20 @@ class ExercicioSeis extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 255, 147, 250),
       ),
       body: Container(
-        padding: EdgeInsets.all(5), // padding é referente ao interno do espaçamento do container
-        margin: EdgeInsets.all(10), // margin é referente ao externo do espaçamento container
+        padding: EdgeInsets.all(
+          5,
+        ), // padding é referente ao interno do espaçamento do container
+        margin: EdgeInsets.all(
+          10,
+        ), // margin é referente ao externo do espaçamento container
         decoration: BoxDecoration(
-           color: const Color.fromARGB(255, 221, 221, 221),
-           borderRadius: BorderRadius.circular(15),
+          color: const Color.fromARGB(255, 221, 221, 221),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
           children: [
             Icon(Icons.search),
-            Expanded(
-              child: Text("Pesquisar...")
-            ),
+            Expanded(child: Text("Pesquisar...")),
           ],
         ),
       ),
@@ -197,47 +193,44 @@ class ExercicioSete extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 255, 147, 250),
       ),
       body: Column(
-          children: [
-
-            Container(
-            padding: EdgeInsets.all(5), // padding é referente ao interno do espaçamento do container
-            margin: EdgeInsets.all(10), // margin é referente ao externo do espaçamento container
-            decoration: BoxDecoration(
-           color: const Color.fromARGB(255, 221, 221, 221),
-           borderRadius: BorderRadius.circular(15),
-            ),
-          child: Row(
-          children: [
-            Icon(Icons.search),
-            Expanded(
-              child: Text("Pesquisar...")
-            ),
-          ],
-        ),
-      ),
-
-            Row(
         children: [
-          Icon(Icons.account_circle_rounded),
-          SizedBox(width: 20),
-          Expanded(child: Container( child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Container(
+            padding: EdgeInsets.all(
+              5,
+            ), // padding é referente ao interno do espaçamento do container
+            margin: EdgeInsets.all(
+              10,
+            ), // margin é referente ao externo do espaçamento container
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 221, 221, 221),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.search),
+                Expanded(child: Text("Pesquisar...")),
+              ],
+            ),
+          ),
+
+          Row(
             children: [
-              Text("Nome"),
-              Text("Telefone")
+              Icon(Icons.account_circle_rounded),
+              SizedBox(width: 20),
+              Expanded(
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text("Nome"), Text("Telefone")],
+                  ),
+                ),
+              ),
+              Icon(Icons.phone),
             ],
-          ),)),
-          Icon(Icons.phone)
+          ),
         ],
       ),
-            
-          ],
-
-      )
     );
   }
 }
-
-
-
