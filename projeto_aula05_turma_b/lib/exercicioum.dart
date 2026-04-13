@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Exercicioum extends StatelessWidget {
-  const Exercicioum({super.key});
+class ExercicioUm extends StatelessWidget {
+  const ExercicioUm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Aula 5 - exercício 1"),
-        backgroundColor: const Color.fromARGB(255, 109, 236, 158),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [

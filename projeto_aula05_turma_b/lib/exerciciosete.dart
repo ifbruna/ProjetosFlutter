@@ -9,16 +9,18 @@ class ExercicioSete extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.menu),
-        backgroundColor: const Color.fromARGB(255, 56, 116, 71),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
           Container(
             height: size.height * 0.15,
             padding: const EdgeInsets.all(20.0),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-              color: Color.fromARGB(255, 56, 116, 71),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(40),
+              ),
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,12 +41,16 @@ class ExercicioSete extends StatelessWidget {
               const Text("Recomendados"),
               TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 153, 194, 164),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
                 ),
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   "Mais",
-                  style: TextStyle(color: Color.fromARGB(255, 45, 92, 64)),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
                 ),
               ),
             ],

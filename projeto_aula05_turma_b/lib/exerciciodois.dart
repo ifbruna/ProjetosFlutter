@@ -8,7 +8,7 @@ class ExercicioDois extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Aula 5 - exercício 2"),
-        backgroundColor: const Color.fromARGB(255, 109, 236, 158),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
@@ -37,16 +37,20 @@ class ExercicioDois extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     "Anterior",
-                    style: TextStyle(color: Color.fromARGB(255, 109, 236, 158)),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     "Próximo",
-                    style: TextStyle(color: Color.fromARGB(255, 109, 236, 158)),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],

@@ -10,8 +10,7 @@ class ExercicioQuatro extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.menu),
-
-        backgroundColor: const Color.fromARGB(255, 23, 194, 66),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
@@ -19,9 +18,11 @@ class ExercicioQuatro extends StatelessWidget {
             width: size.width,
             padding: const EdgeInsets.all(20.0),
             height: size.height * 0.15,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-              color: Color.fromARGB(255, 23, 194, 66),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(40),
+              ),
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

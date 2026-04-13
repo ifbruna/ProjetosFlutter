@@ -8,7 +8,7 @@ class ExercicioTres extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Aula 5 - exercício 3"),
-        backgroundColor: const Color.fromARGB(255, 109, 236, 158),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
@@ -24,7 +24,8 @@ class ExercicioTres extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 15.0),
             decoration: BoxDecoration(
               border: Border.all(
-                color: const Color.fromARGB(255, 109, 236, 158),
+                style: BorderStyle.solid,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             child: const Row(
@@ -47,22 +48,30 @@ class ExercicioTres extends StatelessWidget {
               children: [
                 TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(139, 109, 236, 158),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
                   ),
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     "Anterior",
-                    style: TextStyle(color: Color.fromARGB(255, 61, 134, 89)),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(139, 109, 236, 158),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
                   ),
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     "Próximo",
-                    style: TextStyle(color: Color.fromARGB(255, 61, 134, 89)),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],
