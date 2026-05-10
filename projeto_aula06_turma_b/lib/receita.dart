@@ -52,9 +52,10 @@ class Receita extends StatelessWidget {
 
             // Seção do Modo de Preparo
             Section(title: "Modo de preparo:",
+            numerado: true,
             itens: ["Bata cenoura, ovos e oleo no liquidificador.", 
             "Misture os liquidos com açúcar e farinha. Adicione o fermento por ultimo.", 
-            "Asse em forno medio (180) po9r 30-40 minutos.", 
+            "Asse em forno medio (180) por 30-40 minutos.", 
             "Para cobertura: cozinhe todos os ingredientes em fogo baixo ate engrossar. Despeje sobre o bolo quente."])
 
           ],
@@ -66,10 +67,11 @@ class Receita extends StatelessWidget {
 
 
 class Section extends StatelessWidget {
-  const Section({super.key, required this.title, required this.itens});
+  const Section({super.key, required this.title, required this.itens, this.numerado = false});
 
   final String title;
   final List<String> itens;
+  final bool numerado;
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +95,13 @@ class Section extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    for(var item in itens)
-                    Item(text: item,
-                    icon: Icons.square, ),
-
+                    for (var (i, item) in itens.indexed)
+                      Item(
+                        text: item,
+                        icon: Icons.square,
+                        numerado: numerado,
+                        index: i + 1,
+                      ),
                   ]
                 ),
               ],
@@ -105,23 +110,38 @@ class Section extends StatelessWidget {
 }
 
 class Item extends StatelessWidget {
-  const Item({super.key, required this.text, required this.icon});
+  const Item({super.key, required this.text, required this.icon, this.numerado = false, this.index});
 
   final String text;
   final IconData icon;
+  final bool numerado;
+  final int? index;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-            children: [
-              Icon(icon,
-              size: 8,
-              color: Theme.of(context).colorScheme.primary),
-              SizedBox(width: 4,),
-              Expanded(child: 
-              Text(text)),
-              ],
-            );
-  }
+@override
+Widget build(BuildContext context) {
+  return Row(
+    children: [
+      if (numerado)
+        SizedBox(
+          width: 20,
+          child: Text(
+            '$index',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        )
+      else
+        Icon(
+          icon,
+          size: 8,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      const SizedBox(width: 4),
+      Expanded(child: Text(text)),
+    ],
+  );
+}
 }
 
