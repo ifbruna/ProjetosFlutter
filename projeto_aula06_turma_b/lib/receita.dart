@@ -122,14 +122,10 @@ Widget build(BuildContext context) {
   return Row(
     children: [
       if (numerado)
-        SizedBox(
-          width: 20,
-          child: Text(
-            '$index',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+        Text('$index.',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
           ),
         )
       else
