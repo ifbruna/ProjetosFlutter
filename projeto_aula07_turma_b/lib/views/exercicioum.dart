@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// StatelessWidget - só monta a tela, não guarda estado
 class Exercicioum extends StatelessWidget {
   const Exercicioum({super.key});
 
@@ -12,16 +11,12 @@ class Exercicioum extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Calculadora(), // chama o StatefulWidget
-        ),
+        child: Padding(padding: EdgeInsets.all(16), child: Calculadora()),
       ),
     );
   }
 }
 
-// StatefulWidget - guarda o estado (controllers e resultado)
 class Calculadora extends StatefulWidget {
   const Calculadora({super.key});
 
@@ -36,40 +31,42 @@ class _CalculadoraState extends State<Calculadora> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        TextField(
-          controller: controller1,
-          keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Primeiro número',
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: controller1,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Primeiro número',
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        TextField(
-          controller: controller2,
-          keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Segundo número',
+          const SizedBox(height: 16),
+          TextField(
+            controller: controller2,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Segundo número',
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              resultado =
-                  double.parse(controller1.text) +
-                  double.parse(controller2.text);
-            });
-          },
-          child: const Text('Somar'),
-        ),
-        const SizedBox(height: 16),
-        Text('Resultado: $resultado'),
-      ],
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                resultado =
+                    double.parse(controller1.text) +
+                    double.parse(controller2.text);
+              });
+            },
+            child: const Text('Somar'),
+          ),
+          const SizedBox(height: 16),
+          Text('Resultado: $resultado'),
+        ],
+      ),
     );
   }
 }
