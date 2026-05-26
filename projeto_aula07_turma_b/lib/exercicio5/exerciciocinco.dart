@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'exerciciodois.dart';
 import 'exerciciotres.dart';
 import 'exercicioum.dart';
 
-class Exercicioquatro extends StatefulWidget {
-  const Exercicioquatro({super.key});
+class Exerciciocinco extends StatefulWidget {
+  const Exerciciocinco({super.key});
 
   @override
-  State<Exercicioquatro> createState() => _ExercicioquatroState();
+  State<Exerciciocinco> createState() => _ExerciciocincoState();
 }
 
 int indiceAtual = 0;
 
 final List<Widget> telas = [
+  Center(child: Lottie.asset('assets/rainbow.json')),
   const Exercicioum(),
   const Exerciciodois(),
   const Exerciciotres(),
 ];
 
-class _ExercicioquatroState extends State<Exercicioquatro> {
+class _ExerciciocincoState extends State<Exerciciocinco> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +41,7 @@ class _ExercicioquatroState extends State<Exercicioquatro> {
           });
         },
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'animação'),
           BottomNavigationBarItem(icon: Icon(Icons.calculate), label: 'soma'),
           BottomNavigationBarItem(
             icon: Icon(Icons.sentiment_satisfied_alt_rounded),
