@@ -14,6 +14,35 @@ final TextEditingController _postController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Novo post"),
+        leading: IconButton(icon: const Icon(Icons.close),
+        onPressed: () {
+          Navigator.pop(context);
+          }),
+      ),
+      body: Padding(padding: const EdgeInsetsGeometry.all(12),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _postController,
+                validator: (value){
+                  if(value == null || value.isEmpty){
+                    return 'Entre com seu post';
+                  }
+                  return null;
+                },
+              ),
+              ElevatedButton(onPressed: () {
+                if(_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('salvando')));
+                    Navigator.pop(context, [_postController.text]);
+                }
+              }, child: const Text('salvar')),
+            ],),),),);
   }
 }
