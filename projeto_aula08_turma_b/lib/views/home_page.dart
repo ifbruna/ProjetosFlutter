@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/models/post.dart';
 import 'package:projeto_aula08_turma_b/views/add_post.dart';
 import 'package:projeto_aula08_turma_b/views/post_item.dart';
 import 'package:projeto_aula08_turma_b/views/story_item.dart';
@@ -11,7 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List _posts = ['post 1', 'post 2', 'post 3', 'post 4', 'post 5'];
+  final List _posts = [Post(title:'aula', text:'auauauau'), 
+                      Post(title:'aula2', text:'auauauau'), 
+                      Post(title:'aula3', text:'auauauau'),
+                      Post(title:'aula4', text:'auauauau'), 
+                      Post(title:'aula5', text:'auauauau') ];
 
   final List _stories = ['storie 1', 'storie 2', 'storie 3', 'storie 4', 'storie 5'];
 
@@ -51,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           child: ListView.builder(
             itemCount: _posts.length,
             itemBuilder: (context, index) {
-              return PostItem(text: _posts[index],);
+              return PostItem(post: _posts[index]);
             }
           ),
         ),

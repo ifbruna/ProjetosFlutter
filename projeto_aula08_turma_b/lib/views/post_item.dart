@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/models/post.dart';
 
-class PostItem extends StatelessWidget {
 
-  final String text;
+class PostItem extends StatefulWidget {
 
-  const PostItem({super.key, required this.text});
-  
+  final Post post;
+
+  const PostItem({super.key, required this.post});
+
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
           padding: EdgeInsetsGeometry.all(10),
-          child: Container(
-          height: 200, 
-          color: Theme.of(context).colorScheme.primaryContainer,
-          child: Center(child: Text(text, style: TextStyle(fontSize: 20),),),
-          ),
+          child:
+          ListTile(
+            title: Text(widget.post.title),
+            subtitle: Text(widget.post.text),
+            leading: IconButton(onPressed: () {
+              setState(() {
+                widget.post.like();
+              });
+            } , icon:  Icon(widget.post.liked ? Icons.favorite : Icons.favorite_outline,) )
+            
+          
+
+          )
+
         );
   }
 }
