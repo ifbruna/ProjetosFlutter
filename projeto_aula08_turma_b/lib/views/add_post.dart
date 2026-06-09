@@ -31,6 +31,15 @@ final TextEditingController _postControllerr = TextEditingController();
           child: Column(
             children: [
               TextFormField(
+                controller: _postControllerr,
+                validator: (value){
+                  if(value == null || value.isEmpty){
+                    return 'Entre com seu post';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
                 controller: _postController,
                 validator: (value){
                   if(value == null || value.isEmpty){
