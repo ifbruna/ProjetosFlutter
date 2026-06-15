@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
+import 'package:projeto_aula08_turma_b/models/story.dart';
 import 'package:projeto_aula08_turma_b/views/add_post.dart';
 import 'package:projeto_aula08_turma_b/views/post_item.dart';
 import 'package:projeto_aula08_turma_b/views/story_item.dart';
@@ -18,7 +19,12 @@ class _HomePageState extends State<HomePage> {
                       Post(title:'aula4', text:'auauauau'), 
                       Post(title:'aula5', text:'auauauau') ];
 
-  final List _stories = ['storie 1', 'storie 2', 'storie 3', 'storie 4', 'storie 5'];
+  final List _stories = [
+                        Story(user: 'bruninha_grau', text: 'story1'),
+                        Story(user: 'sergio_do_grau', text: 'story2'),
+                        Story(user: 'lari_do_grau', text: 'story3'),
+                        Story(user: 'graugraugrau', text: 'story4'),
+                        ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +46,26 @@ class _HomePageState extends State<HomePage> {
       },
       child: const Icon(Icons.add)),
 
+
     body: Column(
       children: [
         SizedBox(
           height: 150,
-          child: ListView.builder(
-            itemCount: _stories.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return StoryItem(text: _stories[index]);
-            }
+          child: Stack(
+            children: [
+               ListView.builder(
+              itemCount: _stories.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+              if(index == 0){
+                return FirstStory();
+              }
+              
+              return StoryItem(story: _stories[index]);
+            },
           ),
+          ],
+          )
         ),
         Expanded(
           child: ListView.builder(
