@@ -9,31 +9,32 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
-
-final _formKey = GlobalKey<FormState>();
-final TextEditingController _postController = TextEditingController();
-final TextEditingController _postControllerr = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _postController = TextEditingController();
+  final TextEditingController _postControllerr = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Novo post"),
-        leading: IconButton(icon: const Icon(Icons.close),
-        onPressed: () {
-          Navigator.pop(context);
-          }),
+        title: const Text("Novo post"),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      body: Padding(padding: const EdgeInsetsGeometry.all(12),
+      body: Padding(
+        padding: const EdgeInsetsGeometry.all(12),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
               TextFormField(
                 controller: _postControllerr,
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return 'Entre com seu post';
                   }
                   return null;
@@ -41,20 +42,33 @@ final TextEditingController _postControllerr = TextEditingController();
               ),
               TextFormField(
                 controller: _postController,
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return 'Entre com seu post';
                   }
                   return null;
                 },
               ),
-              ElevatedButton(onPressed: () {
-                if(_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('salvando')));
-                    Navigator.pop(context, [Post(title: _postControllerr.text, text: _postController.text)]);
-                }
-              }, child: const Text('salvar')),
-            ],),),),);
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(const SnackBar(content: Text('salvando')));
+                    Navigator.pop(context, [
+                      Post(
+                        title: _postControllerr.text,
+                        text: _postController.text,
+                      ),
+                    ]);
+                  }
+                },
+                child: const Text('salvar'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

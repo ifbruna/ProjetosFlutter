@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
 import 'package:projeto_aula08_turma_b/models/story.dart';
 import 'package:projeto_aula08_turma_b/views/add_post.dart';
+import 'package:projeto_aula08_turma_b/views/first_story.dart';
 import 'package:projeto_aula08_turma_b/views/post_item.dart';
 import 'package:projeto_aula08_turma_b/views/story_item.dart';
 
@@ -25,6 +26,8 @@ class _HomePageState extends State<HomePage> {
                         Story(user: 'lari_do_grau', text: 'story3'),
                         Story(user: 'graugraugrau', text: 'story4'),
                         ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +60,13 @@ class _HomePageState extends State<HomePage> {
               itemCount: _stories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-              if(index == 0){
-                return FirstStory();
+              if (index == 0) {
+              return FirstStory(story: _stories[index], onAddStory: (Story story) {
+            setState(() {
+          _stories.add(story);
+          });}
+          );
               }
-              
               return StoryItem(story: _stories[index]);
             },
           ),
