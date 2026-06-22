@@ -8,11 +8,18 @@ class AddStory extends StatefulWidget {
   State<AddStory> createState() => _AddStoryState();
 }
 
-final _formKey = GlobalKey<FormState>();
-final TextEditingController _storyController = TextEditingController();
-final TextEditingController _storyControllerr = TextEditingController();
-
 class _AddStoryState extends State<AddStory> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _storyController = TextEditingController();
+  final TextEditingController _storyControllerr = TextEditingController();
+
+  @override
+  void dispose() {
+    _storyControllerr.dispose();
+    _storyController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +40,13 @@ class _AddStoryState extends State<AddStory> {
             children: [
               TextFormField(
                 controller: _storyControllerr,
+                decoration: const InputDecoration(
+                  label: Text.rich(
+                    TextSpan(
+                      children: <InlineSpan>[WidgetSpan(child: Text('User'))],
+                    ),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Entre com seu story';
@@ -42,6 +56,13 @@ class _AddStoryState extends State<AddStory> {
               ),
               TextFormField(
                 controller: _storyController,
+                decoration: const InputDecoration(
+                  label: Text.rich(
+                    TextSpan(
+                      children: <InlineSpan>[WidgetSpan(child: Text('Titulo'))],
+                    ),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Entre com seu story';

@@ -14,6 +14,13 @@ class _AddPostState extends State<AddPost> {
   final TextEditingController _postControllerr = TextEditingController();
 
   @override
+  void dispose() {
+    _postController.dispose();
+    _postControllerr.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -33,6 +40,13 @@ class _AddPostState extends State<AddPost> {
             children: [
               TextFormField(
                 controller: _postControllerr,
+                decoration: const InputDecoration(
+                  label: Text.rich(
+                    TextSpan(
+                      children: <InlineSpan>[WidgetSpan(child: Text('Titulo'))],
+                    ),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Entre com seu post';
@@ -42,6 +56,13 @@ class _AddPostState extends State<AddPost> {
               ),
               TextFormField(
                 controller: _postController,
+                decoration: const InputDecoration(
+                  label: Text.rich(
+                    TextSpan(
+                      children: <InlineSpan>[WidgetSpan(child: Text('Texto'))],
+                    ),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Entre com seu post';
