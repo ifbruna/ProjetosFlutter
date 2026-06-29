@@ -14,6 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void deletePost(int index) {
+    setState(() {
+      _posts.removeAt(index);
+    });
+  }
+
   final List _posts = [
     Post(title: 'aula', text: 'auauauau'),
     Post(title: 'aula2', text: 'auauauau'),
@@ -84,7 +90,10 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
               itemCount: _posts.length,
               itemBuilder: (context, index) {
-                return PostItem(post: _posts[index]);
+                return PostItem(
+                  post: _posts[index],
+                  deleteItem: () => deletePost(index),
+                );
               },
             ),
           ),
