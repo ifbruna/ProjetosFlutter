@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
 
 class AddPost extends StatefulWidget {
-  const AddPost({super.key});
+  final Post? post;
+
+  const AddPost({super.key, this.post});
 
   @override
   State<AddPost> createState() => _AddPostState();
@@ -12,6 +14,15 @@ class _AddPostState extends State<AddPost> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _postController = TextEditingController();
   final TextEditingController _postControllerr = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.post != null) {
+      _postControllerr.text = widget.post!.title;
+      _postController.text = widget.post!.text;
+    }
+  }
 
   @override
   void dispose() {
@@ -24,7 +35,9 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Novo post"),
+        title: widget.post == null
+            ? const Text("Novo post")
+            : const Text('Alterando o post'),
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
@@ -76,12 +89,17 @@ class _AddPostState extends State<AddPost> {
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(const SnackBar(content: Text('salvando')));
-                    Navigator.pop(context, [
-                      Post(
+                    if (widget.post == null) {
+                      Post newPost = Post(
                         title: _postControllerr.text,
                         text: _postController.text,
-                      ),
-                    ]);
+                      );
+                      Navigator.pop(context, [newPost]);
+                    } else {
+                      widget.post?.title = _postControllerr.text;
+                      widget.post?.text = _postController.text;
+                      Navigator.pop(context);
+                    }
                   }
                 },
                 child: const Text('salvar'),

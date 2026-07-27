@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
+import 'package:projeto_aula08_turma_b/views/add_post.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;
-
   final Function() deleteItem;
-
   const PostItem({super.key, required this.post, required this.deleteItem});
 
   @override
@@ -34,9 +33,25 @@ class _PostItemState extends State<PostItem> {
             widget.post.like;
           });
         },
-        trailing: IconButton(
-          onPressed: widget.deleteItem,
-          icon: const Icon(Icons.delete),
+        trailing: Wrap(
+          children: [
+            IconButton(
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPost(post: widget.post),
+                  ),
+                );
+                setState(() {});
+              },
+              icon: const Icon(Icons.edit),
+            ),
+            IconButton(
+              onPressed: widget.deleteItem,
+              icon: const Icon(Icons.delete),
+            ),
+          ],
         ),
       ),
     );
