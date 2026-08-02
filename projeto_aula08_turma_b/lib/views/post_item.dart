@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/database/postdao.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
 import 'package:projeto_aula08_turma_b/views/add_post.dart';
 
@@ -30,8 +31,9 @@ class _PostItemState extends State<PostItem> {
         subtitle: Text(widget.post.text),
         onTap: () {
           setState(() {
-            widget.post.like;
+            widget.post.like();
           });
+          Postdao.instance.update(widget.post);
         },
         trailing: Wrap(
           children: [

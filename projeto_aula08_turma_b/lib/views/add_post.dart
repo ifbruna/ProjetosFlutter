@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/database/postdao.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
 
 class AddPost extends StatefulWidget {
@@ -84,25 +85,33 @@ class _AddPostState extends State<AddPost> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(const SnackBar(content: Text('salvando')));
+                    Post novoPost = Post(
+                      title: _postControllerr.text,
+                      text: _postController.text,
+                    );
+
                     if (widget.post == null) {
-                      Post newPost = Post(
-                        title: _postControllerr.text,
-                        text: _postController.text,
-                      );
-                      Navigator.pop(context, [newPost]);
+                      int id = await Postdao.instance.add(novoPost);
+                      novoPost.id = id;
                     } else {
-                      widget.post?.title = _postControllerr.text;
-                      widget.post?.text = _postController.text;
-                      Navigator.pop(context);
+                      widget.post!.title = _postControllerr.text;
+                      widget.post!.text = _postController.text;
+                      Postdao.instance.update(widget.post!);
                     }
+
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Salvando post")),
+                    );
+                    Navigator.pop(context);
                   }
                 },
-                child: const Text('salvar'),
+                child: const Text("salvar"),
               ),
             ],
           ),

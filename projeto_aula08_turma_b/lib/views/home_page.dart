@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/database/postdao.dart';
+import 'package:projeto_aula08_turma_b/database/storydao.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
 import 'package:projeto_aula08_turma_b/models/story.dart';
 import 'package:projeto_aula08_turma_b/views/add_post.dart';
+import 'package:projeto_aula08_turma_b/views/add_story.dart';
 import 'package:projeto_aula08_turma_b/views/first_story.dart';
 import 'package:projeto_aula08_turma_b/views/post_item.dart';
 import 'package:projeto_aula08_turma_b/views/story_item.dart';
@@ -14,26 +17,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void deletePost(int index) {
+  void deletePost(Post post) {
     setState(() {
-      _posts.removeAt(index);
+      Postdao.instance.remove(post);
     });
   }
 
-  final List _posts = [
-    Post(title: 'aula', text: 'auauauau'),
-    Post(title: 'aula2', text: 'auauauau'),
-    Post(title: 'aula3', text: 'auauauau'),
-    Post(title: 'aula4', text: 'auauauau'),
-    Post(title: 'aula5', text: 'auauauau'),
-  ];
-
-  final List _stories = [
-    Story(user: 'bruninha_grau', text: 'story1'),
-    Story(user: 'sergio_do_grau', text: 'story2'),
-    Story(user: 'lari_do_grau', text: 'story3'),
-    Story(user: 'graugraugrau', text: 'story4'),
-  ];
+  void deleteStory(Story story) {
+    setState(() {
+      Storydao.instance.remove(story);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +38,44 @@ class _HomePageState extends State<HomePage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddPost()),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Wrap(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.image),
+                    title: const Text('Novo post'),
+                    onTap: () async {
+                      Navigator.pop(context); // fecha o menu
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddPost(),
+                        ),
+                      );
+                      setState(() {});
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.camera_alt),
+                    title: const Text('Novo story'),
+                    onTap: () async {
+                      Navigator.pop(context); // fecha o menu
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddStory(),
+                        ),
+                      );
+                      setState(() {});
+                    },
+                  ),
+                ],
+              );
+            },
           );
-          if (result != null) {
-            setState(() {
-              _posts.add(result[0]);
-            });
-          }
         },
         child: const Icon(Icons.add),
       ),
@@ -64,36 +86,68 @@ class _HomePageState extends State<HomePage> {
             height: 150,
             child: Stack(
               children: [
-                ListView.builder(
-                  itemCount: _stories.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    // final reverse = _stories.reversed.toList();
-                    if (index == 0) {
-                      return FirstStory(
-                        story: _stories[index],
-                        onAddStory: (Story story) {
-                          setState(() {
-                            _stories.add(story);
-                          });
-                        },
-                      );
+                FutureBuilder(
+                  future: Storydao.instance.getStorys(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return snapshot.data!.isEmpty
+                          ? const Center(child: Text("Nenhum Story"))
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                Story currentStory = snapshot.data![index];
+
+                                if (index == 0) {
+                                  return FirstStory(
+                                    story: currentStory,
+                                    deleteItem: () => deleteStory(currentStory),
+                                    onStoryUpdated: () {
+                                      setState(() {});
+                                    },
+                                  );
+                                }
+                                return StoryItem(
+                                  story: currentStory,
+                                  deleteItem: () => deleteStory(currentStory),
+                                  onStoryUpdated: () {
+                                    setState(() {});
+                                  },
+                                );
+                              },
+                            );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const CircularProgressIndicator();
                     }
-                    int reverse = _stories.length - index;
-                    return StoryItem(story: _stories[reverse]);
                   },
                 ),
               ],
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: _posts.length,
-              itemBuilder: (context, index) {
-                return PostItem(
-                  post: _posts[index],
-                  deleteItem: () => deletePost(index),
-                );
+            child: FutureBuilder(
+              future: Postdao.instance.getPosts(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return snapshot.data!.isEmpty
+                      ? const Center(child: Text("Nenhum Post"))
+                      : ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            Post currentPost = snapshot.data![index];
+                            return PostItem(
+                              post: currentPost,
+                              deleteItem: () => deletePost(currentPost),
+                            );
+                          },
+                        );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const CircularProgressIndicator();
+                }
               },
             ),
           ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/database/storydao.dart';
 import 'package:projeto_aula08_turma_b/models/story.dart';
 
 class AddStory extends StatefulWidget {
-  const AddStory({super.key});
+  final Story? story;
+
+  const AddStory({super.key, this.story});
 
   @override
   State<AddStory> createState() => _AddStoryState();
@@ -12,6 +15,15 @@ class _AddStoryState extends State<AddStory> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _storyController = TextEditingController();
   final TextEditingController _storyControllerr = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.story != null) {
+      _storyControllerr.text = widget.story!.user;
+      _storyController.text = widget.story!.text;
+    }
+  }
 
   @override
   void dispose() {
@@ -24,7 +36,9 @@ class _AddStoryState extends State<AddStory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Novo story"),
+        title: widget.story == null
+            ? const Text("Novo story")
+            : const Text('Alterando o story'),
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
@@ -71,20 +85,33 @@ class _AddStoryState extends State<AddStory> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(const SnackBar(content: Text('salvando')));
-                    Navigator.pop(context, [
-                      Story(
-                        user: _storyControllerr.text,
-                        text: _storyController.text,
-                      ),
-                    ]);
+                    Story novoStory = Story(
+                      user: _storyControllerr.text,
+                      text: _storyController.text,
+                    );
+
+                    if (widget.story == null) {
+                      int id = await Storydao.instance.add(novoStory);
+                      novoStory.id = id;
+                    } else {
+                      widget.story!.user = _storyControllerr.text;
+                      widget.story!.text = _storyController.text;
+                      Storydao.instance.update(widget.story!);
+                    }
+
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Salvando story")),
+                    );
+                    Navigator.pop(context);
                   }
                 },
-                child: const Text('salvar'),
+                child: const Text("salvar"),
               ),
             ],
           ),

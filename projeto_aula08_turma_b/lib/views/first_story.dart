@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula08_turma_b/database/storydao.dart';
 import 'package:projeto_aula08_turma_b/models/story.dart';
 import 'package:projeto_aula08_turma_b/views/add_story.dart';
 
 class FirstStory extends StatefulWidget {
   final Story story;
-  final Function onAddStory;
+  final Function() deleteItem;
+  final Function() onStoryUpdated; // avisa quando editar/adicionar
 
-  const FirstStory({super.key, required this.story, required this.onAddStory});
+  const FirstStory({
+    super.key,
+    required this.story,
+    required this.deleteItem,
+    required this.onStoryUpdated,
+  });
 
   @override
   State<FirstStory> createState() => _FirstStoryState();
@@ -20,14 +27,46 @@ class _FirstStoryState extends State<FirstStory> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AddStory()),
+            onTap: () {
+              // igual StoryItem: marca como visualizado
+              setState(() {
+                widget.story.vizu();
+              });
+              Storydao.instance.update(widget.story);
+            },
+            onLongPress: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Wrap(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.edit),
+                        title: const Text('Editar'),
+                        onTap: () async {
+                          Navigator.pop(context);
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AddStory(story: widget.story),
+                            ),
+                          );
+                          widget.onStoryUpdated();
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.delete),
+                        title: const Text('Excluir'),
+                        onTap: () {
+                          Navigator.pop(context);
+                          widget.deleteItem();
+                        },
+                      ),
+                    ],
+                  );
+                },
               );
-              if (result != null) {
-                widget.onAddStory(result[0]);
-              }
             },
             child: Stack(
               alignment: Alignment.bottomRight,
@@ -38,6 +77,12 @@ class _FirstStoryState extends State<FirstStory> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.inversePrimary,
                     shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 3,
+                      color: (widget.story.vizualizado)
+                          ? Theme.of(context).colorScheme.inversePrimary
+                          : Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                   child: Center(
                     child: Text(
@@ -46,7 +91,17 @@ class _FirstStoryState extends State<FirstStory> {
                     ),
                   ),
                 ),
-                const Icon(Icons.add_circle),
+                // botão de "+" sobreposto, pra adicionar novo story
+                GestureDetector(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AddStory()),
+                    );
+                    widget.onStoryUpdated();
+                  },
+                  child: const Icon(Icons.add_circle),
+                ),
               ],
             ),
           ),
