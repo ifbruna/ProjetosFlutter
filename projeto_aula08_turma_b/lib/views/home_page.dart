@@ -43,13 +43,15 @@ class _HomePageState extends State<HomePage> {
             context: context,
             builder: (context) {
               return Wrap(
+                // faz uma linha com direção e coloca p linha d baixo se precisar
                 children: [
                   ListTile(
                     leading: const Icon(Icons.image),
                     title: const Text('Novo post'),
                     onTap: () async {
-                      Navigator.pop(context); // fecha o menu
+                      Navigator.pop(context); // fecha o menu, desempilha
                       await Navigator.push(
+                        //manda pra tela, nesse caso com await espera vc voltar da tela addstory pra fazer o setstate
                         context,
                         MaterialPageRoute(
                           builder: (context) => const AddPost(),
@@ -62,8 +64,9 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.camera_alt),
                     title: const Text('Novo story'),
                     onTap: () async {
-                      Navigator.pop(context); // fecha o menu
+                      Navigator.pop(context); // fecha o menu, desempilha
                       await Navigator.push(
+                        //manda pra tela, nesse caso com await espera vc voltar da tela addstory pra fazer o setstate
                         context,
                         MaterialPageRoute(
                           builder: (context) => const AddStory(),
@@ -87,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             child: Stack(
               children: [
                 FutureBuilder(
-                  future: Storydao.instance.getStorys(),
+                  future: Storydao.instance.getStorys(), //read
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return snapshot.data!.isEmpty
@@ -101,7 +104,9 @@ class _HomePageState extends State<HomePage> {
                                 if (index == 0) {
                                   return FirstStory(
                                     story: currentStory,
-                                    deleteItem: () => deleteStory(currentStory),
+                                    deleteItem: () => deleteStory(
+                                      currentStory,
+                                    ), //pq esse deleteItem ?
                                     onStoryUpdated: () {
                                       setState(() {});
                                     },

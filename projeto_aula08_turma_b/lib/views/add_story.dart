@@ -102,6 +102,7 @@ class _AddStoryState extends State<AddStory> {
                     }
 
                     if (!context.mounted) {
+                      //kki faz?
                       return;
                     }
 

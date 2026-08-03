@@ -28,7 +28,7 @@ class _FirstStoryState extends State<FirstStory> {
         children: [
           GestureDetector(
             onTap: () {
-              // igual StoryItem: marca como visualizado
+              // igual StoryItem
               setState(() {
                 widget.story.vizu();
               });
@@ -91,7 +91,7 @@ class _FirstStoryState extends State<FirstStory> {
                     ),
                   ),
                 ),
-                // botão de "+" sobreposto, pra adicionar novo story
+                // botão que diferencia um pouco do storyitem
                 GestureDetector(
                   onTap: () async {
                     await Navigator.push(
