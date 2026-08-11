@@ -9,7 +9,7 @@ class Productdao {
   // read
   Future<List<Product>> getProduct() async {
     Database db = await DatabaseHelper.instance.database;
-    var products = await db.query('products', orderBy: 'id ASC');
+    var products = await db.query('products', orderBy: 'id DESC');
     List<Product> productList = products.isNotEmpty
         ? products.map((item) => Product.fromMap(item)).toList()
         : [];

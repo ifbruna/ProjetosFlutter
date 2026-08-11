@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void deletePost(Product product) {
+  void deleteProduct(Product product) {
     setState(() {
       Productdao.instance.remove(product);
     });
@@ -28,39 +28,41 @@ class _HomePageState extends State<HomePage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          Navigator.pop(context);
           await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AddProduct()),
           );
           setState(() {});
         },
+        child: const Icon(Icons.add),
       ),
 
       body: Column(
         children: [
-          FutureBuilder(
-            future: Productdao.instance.getProduct(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return snapshot.data!.isEmpty
-                    ? const Center(child: Text("Nenhum produto"))
-                    : ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          Product currentPost = snapshot.data![index];
-                          return ProductItem(
-                            product: currentProduct,
-                            deleteItem: () => deleteProduct(currentProduct),
-                          );
-                        },
-                      );
-              } else if (snapshot.hasError) {
-                return Center(child: Text(snapshot.error.toString()));
-              } else {
-                return const CircularProgressIndicator();
-              }
-            },
+          Expanded(
+            child: FutureBuilder(
+              future: Productdao.instance.getProduct(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return snapshot.data!.isEmpty
+                      ? const Center(child: Text("Nenhum produto"))
+                      : ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            Product currentProduct = snapshot.data![index];
+                            return ProductItem(
+                              product: currentProduct,
+                              deleteItem: () => deleteProduct(currentProduct),
+                            );
+                          },
+                        );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
           ),
         ],
       ),

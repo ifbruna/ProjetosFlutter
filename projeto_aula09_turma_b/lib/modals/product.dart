@@ -1,8 +1,8 @@
 class Product {
   int? id;
-  final String name;
-  final int amount;
-  final double price;
+  String name;
+  int amount;
+  double price;
   bool buyed;
 
   Product({

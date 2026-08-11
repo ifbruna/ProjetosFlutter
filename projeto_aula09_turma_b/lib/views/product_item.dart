@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_aula09_turma_b/database/productdao.dart';
 import 'package:projeto_aula09_turma_b/modals/product.dart';
+import 'package:projeto_aula09_turma_b/views/add_product.dart';
 
 class ProductItem extends StatefulWidget {
   final Product product;
@@ -30,7 +32,13 @@ class _ProductItemState extends State<ProductItem> {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        subtitle: Text(widget.product.name),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Preço: ${widget.product.price}'),
+            Text('Quantidade: ${widget.product.amount}'),
+          ],
+        ),
         onTap: () {
           setState(() {
             widget.product.buy();
