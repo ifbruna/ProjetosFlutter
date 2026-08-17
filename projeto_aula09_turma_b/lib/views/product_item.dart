@@ -23,8 +23,14 @@ class _ProductItemState extends State<ProductItem> {
       padding: const EdgeInsetsGeometry.all(8),
       child: ListTile(
         leading: widget.product.buyed
-            ? const Icon(Icons.shopping_bag)
-            : const Icon(Icons.shopping_bag_outlined),
+            ? Icon(
+                Icons.shopping_bag,
+                color: Theme.of(context).colorScheme.primary,
+              )
+            : Icon(
+                Icons.shopping_bag_outlined,
+                color: Theme.of(context).colorScheme.primary,
+              ),
         tileColor: Theme.of(context).colorScheme.primaryContainer,
         title: Text(widget.product.name),
         titleTextStyle: TextStyle(
@@ -57,11 +63,17 @@ class _ProductItemState extends State<ProductItem> {
                 );
                 setState(() {});
               },
-              icon: const Icon(Icons.edit),
+              icon: Icon(
+                Icons.edit,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             IconButton(
               onPressed: widget.deleteItem,
-              icon: const Icon(Icons.delete),
+              icon: Icon(
+                Icons.delete,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ],
         ),

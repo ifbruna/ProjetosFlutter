@@ -22,7 +22,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ToBuy'),
+        title: Text(
+          'Tobuy',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
 
@@ -34,13 +39,14 @@ class _HomePageState extends State<HomePage> {
           );
           setState(() {});
         },
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
       ),
 
-      body: Column(
-        children: [
-          Expanded(
-            child: FutureBuilder(
+      body: SizedBox(
+        height: 150,
+        child: Stack(
+          children: [
+            FutureBuilder(
               future: Productdao.instance.getProduct(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -63,8 +69,8 @@ class _HomePageState extends State<HomePage> {
                 }
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
