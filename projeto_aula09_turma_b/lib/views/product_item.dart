@@ -43,6 +43,9 @@ class _ProductItemState extends State<ProductItem> {
           children: [
             Text('Preço: ${widget.product.price}'),
             Text('Quantidade: ${widget.product.amount}'),
+            Text(
+              'Validade: ${widget.product.validade.day}/${widget.product.validade.month}/${widget.product.validade.year}',
+            ),
           ],
         ),
         onTap: () {

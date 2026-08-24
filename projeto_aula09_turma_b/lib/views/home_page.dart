@@ -42,35 +42,28 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
       ),
 
-      body: SizedBox(
-        height: 150,
-        child: Stack(
-          children: [
-            FutureBuilder(
-              future: Productdao.instance.getProduct(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data!.isEmpty
-                      ? const Center(child: Text("Nenhum produto"))
-                      : ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            Product currentProduct = snapshot.data![index];
-                            return ProductItem(
-                              product: currentProduct,
-                              deleteItem: () => deleteProduct(currentProduct),
-                            );
-                          },
-                        );
-                } else if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-          ],
-        ),
+      body: FutureBuilder(
+        future: Productdao.instance.getProduct(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return snapshot.data!.isEmpty
+                ? const Center(child: Text("Nenhum produto"))
+                : ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      Product currentProduct = snapshot.data![index];
+                      return ProductItem(
+                        product: currentProduct,
+                        deleteItem: () => deleteProduct(currentProduct),
+                      );
+                    },
+                  );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }

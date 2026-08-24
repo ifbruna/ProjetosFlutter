@@ -29,7 +29,8 @@ class DatabaseHelper {
     name TEXT NOT NULL,
     amount INTEGER NOT NULL,
     price REAL NOT NULL,
-    buyed INTEGER NOT NULL)
+    buyed INTEGER NOT NULL,
+    validade TEXT NOT NULL)
     ''');
   }
 }

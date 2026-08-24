@@ -16,6 +16,9 @@ class _AddProductState extends State<AddProduct> {
   final TextEditingController _produtoName = TextEditingController();
   final TextEditingController _produtoAmount = TextEditingController();
   final TextEditingController _produtoPrice = TextEditingController();
+  final TextEditingController _produtoValidadeController =
+      TextEditingController();
+  DateTime _produtoValidade = DateTime.now();
 
   @override
   void initState() {
@@ -24,7 +27,9 @@ class _AddProductState extends State<AddProduct> {
       _produtoName.text = widget.product!.name;
       _produtoAmount.text = widget.product!.amount.toString();
       _produtoPrice.text = widget.product!.price.toString();
+      _produtoValidade = widget.product!.validade;
     }
+    _produtoValidadeController.text = _formatarData(_produtoValidade);
   }
 
   @override
@@ -32,8 +37,12 @@ class _AddProductState extends State<AddProduct> {
     _produtoName.dispose();
     _produtoAmount.dispose();
     _produtoPrice.dispose();
+    _produtoValidadeController.dispose();
     super.dispose();
   }
+
+  String _formatarData(DateTime data) =>
+      '${data.day}/${data.month}/${data.year}';
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +144,29 @@ class _AddProductState extends State<AddProduct> {
                       return null;
                     },
                   ),
+
+                  TextFormField(
+                    controller: _produtoValidadeController,
+                    readOnly: true,
+                    decoration: const InputDecoration(labelText: 'Validade'),
+                    onTap: () async {
+                      final DateTime? escolhida = await showDatePicker(
+                        context: context,
+                        initialDate: _produtoValidade,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2050),
+                      );
+                      if (escolhida != null) {
+                        setState(() {
+                          _produtoValidade = escolhida;
+                          _produtoValidadeController.text = _formatarData(
+                            escolhida,
+                          );
+                        });
+                      }
+                    },
+                  ),
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -144,21 +176,22 @@ class _AddProductState extends State<AddProduct> {
                         final int amount = int.parse(_produtoAmount.text);
                         final double price = double.parse(_produtoPrice.text);
 
-                        Product produto = Product(
-                          id: widget.product?.id,
-                          name: _produtoName.text,
-                          amount: amount,
-                          price: price,
-                          buyed: widget.product?.buyed ?? false,
-                        );
-
                         if (widget.product == null) {
+                          Product produto = Product(
+                            id: widget.product?.id,
+                            name: _produtoName.text,
+                            amount: amount,
+                            price: price,
+                            validade: _produtoValidade,
+                          );
+
                           int id = await Productdao.instance.add(produto);
                           produto.id = id;
                         } else {
                           widget.product!.name = _produtoName.text;
                           widget.product!.amount = amount;
                           widget.product!.price = price;
+                          widget.product!.validade = _produtoValidade;
                           await Productdao.instance.update(widget.product!);
                         }
 

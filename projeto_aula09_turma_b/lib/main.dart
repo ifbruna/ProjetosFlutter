@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ToBuy',
       theme: ThemeData(
-        colorScheme: .fromSeed(
+        colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 255, 89, 144),
         ),
         scaffoldBackgroundColor: Colors.pink.shade100,
