@@ -31,3 +31,6 @@ Projeto de rede social (post + story) com crud em memória e logo após adaptado
 ## 🛒 projeto_aula09
 
 Projeto feito individualmente como avaliação do segundo trimestre da disciplina de desenvolvimento de aplicativos. Aplicativo "ToBuy" é uma lista de compras com entrada para dados em texto e com um showDatePicker para validade de produtos, contém flag e Crud de uma tabela.
+
+## 👩‍💻 Autora
+Bruna Farias 
