@@ -5,8 +5,8 @@ import 'package:projeto_aula08_turma_b/views/add_post.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;
-  final Function() deleteItem;
-  const PostItem({super.key, required this.post, required this.deleteItem});
+  final Function()? deleteItem;
+  const PostItem({super.key, required this.post, this.deleteItem});
 
   @override
   State<PostItem> createState() => _PostItemState();
@@ -33,7 +33,7 @@ class _PostItemState extends State<PostItem> {
           setState(() {
             widget.post.like();
           });
-          Postdao.instance.update(widget.post);
+          Postdao().update(widget.post);
         },
         trailing: Wrap(
           children: [

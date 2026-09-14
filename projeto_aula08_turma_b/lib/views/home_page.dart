@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   void deletePost(Post post) {
     setState(() {
-      Postdao.instance.remove(post);
+      Postdao().remove(post);
     });
   }
 
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: Postdao.instance.getPosts(),
+              future: Postdao().getPosts(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data!.isEmpty
