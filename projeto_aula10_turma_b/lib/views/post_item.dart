@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_aula08_turma_b/database/postdao.dart';
 import 'package:projeto_aula08_turma_b/models/post.dart';
+import 'package:projeto_aula08_turma_b/views/add_comment.dart';
 import 'package:projeto_aula08_turma_b/views/add_post.dart';
 
 class PostItem extends StatefulWidget {
@@ -18,9 +19,17 @@ class _PostItemState extends State<PostItem> {
     return Padding(
       padding: const EdgeInsetsGeometry.all(8),
       child: ListTile(
-        leading: widget.post.liked
-            ? const Icon(Icons.favorite)
-            : const Icon(Icons.favorite_border),
+        leading: GestureDetector(
+          onTap: () {
+            setState(() {
+              widget.post.like();
+            });
+            Postdao().update(widget.post);
+          },
+          child: widget.post.liked
+              ? const Icon(Icons.favorite)
+              : const Icon(Icons.favorite_border),
+        ),
         tileColor: Theme.of(context).colorScheme.primaryContainer,
         title: Text(widget.post.title),
         titleTextStyle: TextStyle(
@@ -29,11 +38,15 @@ class _PostItemState extends State<PostItem> {
           fontWeight: FontWeight.bold,
         ),
         subtitle: Text(widget.post.text),
-        onTap: () {
-          setState(() {
-            widget.post.like();
-          });
-          Postdao().update(widget.post);
+        onTap: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  AddComment(post: widget.post, deletePost: widget.deleteItem),
+            ),
+          );
+          setState(() {});
         },
         trailing: Wrap(
           children: [

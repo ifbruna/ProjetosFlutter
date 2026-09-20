@@ -8,14 +8,13 @@ class Commentdao {
   // read
   Future<List<Comment>> getCommentsByPost(int postId) async {
     Database db = await DatabaseHelper.instance.database;
-    var comments = await db.query(
-      'SELECT comments.text FROM comments INNER JOIN posts ON comments.post_id = posts.id WHERE comments.post_id = ?',
-      orderBy: 'comments.id DESC',
+    var comments = await db.rawQuery(
+      'SELECT * FROM comments WHERE post_id = ? ORDER BY id DESC',
+      [postId],
     );
-    List<Comment> commentList = comments.isNotEmpty
+    return comments.isNotEmpty
         ? comments.map((item) => Comment.fromMap(item)).toList()
         : [];
-    return commentList;
   }
 
   // create
