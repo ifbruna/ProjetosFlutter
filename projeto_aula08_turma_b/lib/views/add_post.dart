@@ -93,12 +93,12 @@ class _AddPostState extends State<AddPost> {
                     );
 
                     if (widget.post == null) {
-                      int id = await Postdao().add(novoPost);
+                      int id = await Postdao.instance.add(novoPost);
                       novoPost.id = id;
                     } else {
                       widget.post!.title = _postControllerr.text;
                       widget.post!.text = _postController.text;
-                      Postdao().update(widget.post!);
+                      Postdao.instance.update(widget.post!);
                     }
 
                     if (!context.mounted) {
