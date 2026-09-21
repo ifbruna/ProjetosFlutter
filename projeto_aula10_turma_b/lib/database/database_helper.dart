@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -17,15 +14,13 @@ class DatabaseHelper {
   static const String _dbName = "instagram_db.db";
 
   Future<Database> _initDatabase() async {
-    Directory documentsDir = await getApplicationCacheDirectory();
-    String path = join(documentsDir.path, _dbName);
+    String databasePath = await getDatabasesPath();
+    String path = join(databasePath, _dbName);
     return openDatabase(
       path,
       onCreate: _createDb,
       version: _version,
-      onConfigure: (db) async {
-        await db.execute('PRAGMA foreign_keys = ON');
-      },
+      onConfigure: _onConfig,
     );
   }
 
@@ -51,5 +46,9 @@ class DatabaseHelper {
     text TEXT NOT NULL,
     post_id INTEGER,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE)''');
+  }
+
+  Future _onConfig(Database db) async {
+    await db.execute('PRAGMA foreign_keys = ON');
   }
 }

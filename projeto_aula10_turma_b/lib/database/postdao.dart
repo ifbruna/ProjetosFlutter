@@ -3,8 +3,6 @@ import 'package:projeto_aula08_turma_b/models/post.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Postdao {
-  Postdao();
-
   // read
   Future<List<Post>> getPosts() async {
     Database db = await DatabaseHelper.instance.database;
